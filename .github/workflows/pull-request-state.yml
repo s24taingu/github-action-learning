@@ -1,0 +1,20 @@
+name: 'pull-request-state'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  test_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: pull request state
+        uses: ./
+        id: pr_state
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: 1
+      - name: show pr state
+        run: echo pull request state ${{ steps.pr_state.outputs.pullRequestState }}
